@@ -111,7 +111,32 @@ In the cindition of while loop:
 ```
 We put the target number and the required length of digits into ExpMath function, to convert the number to digit string format. Then, cut the required part of the string and convert it to Int. And put it into function findprime(n). If we don't find the satisfied length of prime number, we need extend the searching range, thus we add 1 to len every time. However, we need to ensure the length of prime number is satisfied. When we extend the searching range, we need to check the later pair of prime number. Thus, we add 1 to left, to shift the range and ensure that the left searching bound is satisfied.   
 
-For example, given target number = 123, we want to find out the first 2-dicimal prime number. The initial range is 1,2. However, 12 is not a prime. Thus, we extend the range to 1,2,3, and add one to left indice to shift the range to 2,3. 
+For example, given target number = 123, we want to find out the first 2-dicimal prime number. The initial range is 1,2. However, 12 is not a prime. Thus, we extend the range to 1,2,3, and add one to left indice to shift the range to 2,3.   
+
+I also created some tests, including the 10-digit prime number of e. The tests are shown below:
+```python
+    def test_prime():
+      Test1 = SlidWind(E, 10)
+      Test2 = SlidWind(pi, 4)
+
+      Test3 = findprime(11)
+      Test4 = findprime(120)
+
+      Test5 = ExpMath(pi, 4)
+      Test6 = ExpMath(E, 10)
+      Test7 = ExpMath(12345, 3)
+
+      assert Test1 == 7427466391
+      assert Test2 == 4159
+
+      assert Test3 == True
+      assert Test4 == False
+
+      assert Test5 == "3141"
+      assert Test6 == "2718281828"
+      assert Test7 == "123"
+```
+The function passed all these tests, including **the first 10-digit prime in the expansion e is 7427466391.**. 
 
 Eventually, we could find find out the prime.  
 **The first 10-digit prime in the decimal expansion of 17π is: 8649375157**
