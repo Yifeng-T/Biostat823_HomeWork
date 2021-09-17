@@ -1,5 +1,4 @@
 # Biostat823_HomeWork
-This repository is for my  course biostat823. 
+This repository is for my biostat823 course work
   
   
-Please choose different branches to find out the according hw
