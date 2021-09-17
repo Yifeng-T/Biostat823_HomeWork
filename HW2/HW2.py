@@ -5,14 +5,16 @@ def findprime(n):
     """check the given number is prime"""
     """(num) ====> Boolean"""
 
-    x = 3 # the small two primes 2, 3
+    x = 3 # the most two smallest two primes 2, 3
     if n==1:
         raise ValueError("Input Check Number Should be Greater than 1!")
+    elif n<=0:
+        raise ValueError("The Input number should be a postive number!")
     elif (n <= x):
         return True
     
     # A composite number n has at least one pair of factors,
-    # one is less than sqrt(n), the other one is larger.
+    # one is less than sqrt(n), the other one is larger, we only need to consider one side:
     key = int(math.sqrt(n))
     for i in range(2, key+1):
         if(n % i == 0):
@@ -23,7 +25,9 @@ def ExpMath(n, digits):
     """Generate the target number as degit format"""
     """(num. num) ----> str"""
     #it is convenient to use str to change indices
-    if n % pi == 0: # remove the decimal, should add another number for n.eval()
+    if n % pi == 0: 
+        #reason why plus one? nmevalf(digits+1): avoid decimal carry, we need to include one more digit.
+        #reason why plus one?[0:digits+1]: remove the decimal point, should add one more digit.
         return str(n.evalf(digits+1))[0:digits+1].replace(".", "")
     elif n % E == 0:
         return str(n.evalf(digits+1))[0:digits+1].replace(".", "")
@@ -58,14 +62,13 @@ def SlidWind(num, l):
 
     #define the prime
     result = int(ExpMath(num, len)[left:left+l])
-    print(f"the first 10-digit prime in the decimal expansion of 17π is: {result}")
+    print(f"the first {l}-digit prime in the decimal expansion of {num} is: {result}")
     return result
 
 if __name__ == '__main__':
     num = 17 * pi #target number
     digit = 10 #required digits
     SlidWind(num, digit)
-
     
 
 
