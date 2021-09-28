@@ -5,7 +5,7 @@
 The three data sets are all related to malaria.  
 Through a brief overview of the data sets, I found there are over 200 entities in each data set. In order to provide more efficient data visualization to users and make sure they could easily gain information about malaria in each entity, I used matplotlib and ipywidges libraries. Matplotlib could show a clear relationship between some indexes of malaria and year in every entity, while ipywidges could provide an interface to allow users to select their interested entities. I cannot show the information from all entities on one single graph, so I think giving the selection choice to users to see which one they are interested is a good idea. To enable users to view the current entity information, they can also take into account the data of other entities. I added the curve which representes the average value among all entities in table1 and table3. Below, I will show some details of each dataset and corresponding data visulizations. 
 # The first data set:
-## Overview of the first dataset: malaria_deaths.csv:
+## Overview: malaria_deaths.csv:
 ![table1.png](https://i.loli.net/2021/09/29/yjEiz7vYBUGw6QX.png)
 The first table contains 6 variables. The column: "value" contains the exact same values as column:"Death-Malaria-Sex: both.... people)". It is just easier to call the values in that column by recreating a new column named "value". Mean_rate column contains the average death rate among all entities in each year. Below is the function to achieve the visulization and interface:
 ## Data visulization:  
@@ -37,7 +37,7 @@ Here is a brief gif picture to show how the interface works:
 ![graph1.gif](https://i.loli.net/2021/09/28/xZSUGlCundIqboQ.gif)
 
 # The second data set
-## Overview of the first dataset: malaria_deaths.csv:
+## Overview: malaria_deaths_age.csv
 ![table2.png](https://i.loli.net/2021/09/29/BQWnalxXmfh3zuV.png)  
 The second table contains 5 variables. In the data visulization part, I will show the death rate of all corresponding age_geoups people V.S. year in each entity. Users could select the entity they want to see the information. Below is the function to achieve the visulization and interface:
 ## Data visulization for the second dataset:
@@ -63,7 +63,7 @@ Here is a brief gif picture to show how the interface works:
 ![graph2.gif](https://i.loli.net/2021/09/28/5lAw3EUJXueGMDP.gif)
 
 # The thrid data set
-## Overview of the first dataset: malaria_deaths.csv:
+## Overview: malaria_inc.csv
 ![table3.png](https://i.loli.net/2021/09/29/e1ZjsMRhwKvCu5E.png)  
 The third table contains 6 variables. The column: "value" contains the exact same values as column:"Incidence of malaria.... at risk)". It is just easier to call the values in that column by recreating a new column named "value". Mean_INCIDENCErate is a column contains the average death rate among all entities in each year. Below is the function to achieve the visulization and interface:
 ## Data visulization for the third dataset:
