@@ -6,7 +6,8 @@ The three data sets are all related to malaria.
 Through a brief overview of the data sets, I found there are over 200 entities in each data set. In order to provide more efficient data visualization to users and make sure they could easily gain information about malaria in each entity, I used matplotlib and ipywidges libraries. Matplotlib could show a clear relationship between some indexes of malaria and year in every entity, while ipywidges could provide an interface to allow users to select their interested entities. I cannot show the information from all entities on one single graph, so I think giving the selection choices to users to see two entities they are interested is a good idea. To enable users to view the current entity information, they can also take into account the data of other entities. I added the curve which representes the average value in different years among all entities in table1 and table3. Below, I will show some details of each dataset and corresponding data visulizations. 
 # The first data set:
 ## Overview: malaria_deaths.csv:
-![table1.png](https://i.loli.net/2021/09/29/yjEiz7vYBUGw6QX.png)
+![table1.png](https://i.loli.net/2021/09/29/yjEiz7vYBUGw6QX.png). 
+
 The first table contains 6 variables. The column: "value" contains the exact same values as column:"Death-Malaria-Sex: both.... people)". It is just easier to call the values in that column by recreating a new column named "value". Mean_rate column contains the average death rate among all entities in each year. Below is the function to achieve the visulization and interface:
 ## Data visulization:  
 ```python
