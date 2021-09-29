@@ -42,7 +42,7 @@ def create_plot(entity1, entity2):
         
 widgets.interact(create_plot, entity1=sorted(set(table1.Entity)), entity2=sorted(set(table1.Entity)));
 ```   
-=================================  
+=================================    
 Uers could select at most two prefered entities, and there would be a line represents the average value among all entities.  
 Here is a gif picture to show how the interface works:  
   
@@ -115,7 +115,8 @@ def create_plot3(entity1, entity2):
         
 widgets.interact(create_plot3, entity1=sorted(set(table3.Entity)),  entity2=sorted(set(table3.Entity)));
 ```
-=========================== 
+===========================   
+
 Uers could select at most two prefered entities, and there would be a line represents the average value among all entities.  
 Here is a brief gif picture to show how the interface works:  
 
