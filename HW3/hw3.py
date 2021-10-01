@@ -132,36 +132,59 @@ for i in range(0, len(table3)):
     mean_INCrate.append(dicy3[Y])
 table3["mean_INCIDENCErate"] = mean_INCrate
 
-#draw the plot:
-def create_plot3(entity1, entity2):
-    if (entity1 == entity2):
-            print("The two input entities are the same, only showing the second input entity")
+#adding new column: to store continent info
+continent = []
+for index,row in table3.iterrows():
+    #indicate some special country name:
+    if row["Entity"] == "Cote d'Ivoire":
+        country_code = pc.country_name_to_country_alpha2('Ivory Coast', cn_name_format="default")
+        continent_name = pc.country_alpha2_to_continent_code(country_code)
+        continent.append(continent_name)
+    elif row["Entity"] == "Democratic Republic of Congo":
+        country_code = pc.country_name_to_country_alpha2('Congo', cn_name_format="default")
+        continent_name = pc.country_alpha2_to_continent_code(country_code)
+        continent.append(continent_name)
+    elif row["Entity"] == "Timor":
+        continent.append("AS")
+    elif row["Entity"] == "World":
+        continent.append("World")
+    else:
+        country_code = pc.country_name_to_country_alpha2(row["Entity"], cn_name_format="default")
+        continent_name = pc.country_alpha2_to_continent_code(country_code)
+        continent.append(continent_name)
+table3["Conti"] = continent
+table3
 
-    with plt.style.context("ggplot"):
-        fig = plt.figure(figsize=(8,6))
-        fig.clear()
-        
-        plt.plot(table3[table3.Entity == entity1].Year,
-                 table3[table3.Entity == entity1].value,
-                 linestyle='-',
-                 color = 'black'
-                   )
-        plt.plot(table3[table3.Entity == entity1].Year,
-                 table3[table3.Entity == entity1].mean_INCIDENCErate,
-                 linestyle=':',
-                 color = 'red'
-                   )
-        plt.plot(table3[table3.Entity == entity2].Year,
-                 table3[table3.Entity == entity2].value,
-                 linestyle="--",
-                 color = 'yellow'
-                   )
-        plt.legend([f"{entity1}", 
-                    "Avg of INCIDENCErate for all entities",
-                    f"{entity2}"])
-        plt.xlabel("Year")
-        plt.ylabel("Incidence rate/100,000 People")
-        plt.title(f"The Incidence Rate")
-        
-        
-widgets.interact(create_plot3, entity1=sorted(set(table3.Entity)),  entity2=sorted(set(table3.Entity)));
+#draw the plot:
+import pycountry_convert as pc
+
+def create_plot4(year, continent):
+    #set pic size
+    fig = plt.figure(figsize=(8,8))
+    fig.clear()
+    
+    #store the xlabel and ylabel values:
+    country = []
+    country_value = []
+    for index,row in table3.iterrows():
+        if row["Year"] == year and row["Conti"] == continent:
+            country.append(row["Code"])
+            country_value.append(row["value"])
+    colors = np.random.rand(len(country),3)
+    
+    x = plt.barh(range(len(country_value)), country_value, tick_label=country, color = colors)
+    plt.ylabel("Country Code")
+    plt.xlabel("Incidence rate/100,000 People")
+    plt.title(f"The Incidence Rate in conti{continent} and in year{year}")
+    
+    # add number for each bar:
+    for rect in x:
+        w = rect.get_width()
+        plt.text(w, rect.get_y()+rect.get_height()/2, '%d' % int(w), ha='left', va='center')
+
+
+#remove world conti:
+cont = list(sorted(set(table3.Conti)))
+cont.remove("World")
+
+widgets.interact(create_plot4, year=sorted(set(table3.Year)), continent=cont);
