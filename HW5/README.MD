@@ -94,3 +94,42 @@ image_batch, labels_batch = next(iter(normalized_ds))
 first_image = image_batch[0]
 ```
 
+## Create the model:
+The Sequential model consists of three convolution blocks (tf.keras.layers.Conv2D) with a max pooling layer (tf.keras.layers.MaxPooling2D) in each of them. There's a fully-connected layer (tf.keras.layers.Dense) with 128 units on top of it that is activated by a ReLU activation function ('relu'). This model has not been tuned for high accuracy—the goal of this tutorial is to show a standard approach.
+
+```python
+# 3 types of insects
+num_classes = 3
+
+# create the model:
+model = Sequential([
+  layers.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
+  layers.Conv2D(16, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Conv2D(32, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Conv2D(64, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Flatten(),
+  layers.Dense(128, activation='relu'),
+  layers.Dense(num_classes)
+])
+
+# Compile the model
+model.compile(optimizer='adam',loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), 
+              metrics=['accuracy'])
+              
+```
+## Train the model
+```python
+#Train the model
+epochs=10
+history = model.fit(
+  train_ds,
+  validation_data=test_ds,
+  epochs=epochs
+)
+```
+
+## Prediction
+Now, we have created our own model! We could use the model to do some simple predictions for those three insects. 
