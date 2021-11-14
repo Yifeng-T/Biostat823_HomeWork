@@ -216,4 +216,7 @@ print("    Reference             beetles             cockroach             dragf
 shap.image_plot([sv[i] for i in range(3)], x_test[0:5])
 ```
 Following is the sv image. The first row in reference is cockroach, we can observe there more red part in the imagine under the cockroach column.It indicates that the classification accuracy is satisfied.
-![sv.png](https://i.loli.net/2021/11/14/aALV5PmlQ2ZbegE.png)
+
+![WechatIMG261.png](https://i.loli.net/2021/11/14/kwEOo64yHYtZpvb.png)
+
+====end
