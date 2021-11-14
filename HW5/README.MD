@@ -132,4 +132,82 @@ history = model.fit(
 ```
 
 ## Prediction
-Now, we have created our own model! We could use the model to do some simple predictions for those three insects. 
+Now, we have created our own model! We could use the model to do some simple predictions for those three insects.   
+By using the following code:
+```python
+#prediction:
+img = tf.keras.utils.load_img(
+    'meme.jpg', target_size=(img_height, img_width)
+) # change the 'meme.jpg' to your own image.
+img_array = tf.keras.utils.img_to_array(img)
+img_array = tf.expand_dims(img_array, 0) # Create a batch
+
+predictions = model.predict(img_array)
+score = tf.nn.softmax(predictions[0])
+
+print(
+    "This image most likely belongs to {} with a {:.2f} percent confidence."
+    .format(class_names[np.argmax(score)], 100 * np.max(score))
+)
+```
+
+## Visualizing the model performance
+We could use the following code to create plots of loss and accuracy on the training and validation sets:
+```python
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs_range = range(epochs)
+
+plt.figure(figsize=(8, 8))
+plt.subplot(1, 2, 1)
+plt.plot(epochs_range, acc, label='Training Accuracy')
+plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+plt.legend(loc='lower right')
+plt.title('Training and Testing Accuracy')
+
+plt.subplot(1, 2, 2)
+plt.plot(epochs_range, loss, label='Training Loss')
+plt.plot(epochs_range, val_loss, label='Validation Loss')
+plt.legend(loc='upper right')
+plt.title('Training and Testing Loss')
+plt.show()
+```
+The plot is like:
+![result.png](https://i.loli.net/2021/11/14/7fAmbQgWNhGZPdi.png) 
+
+## SHAP Evaluation
+SHAP (SHapley Additive exPlanations) is a game theoretic approach to explain the output of any machine learning model. It connects optimal credit allocation with local explanations using the classic Shapley values from game theory and their related extensions.  
+To get the shap value, we need some steps to do some preparation. The first is data prepared:  
+In order to use SHAP help us evaluate the model, we need to change the train data and test data to matrix format:
+```python
+# convert the train data set to matrix form
+x_train = np.concatenate([x for x, y in train_ds], axis = 0)
+y_train = np.concatenate([y for x, y in train_ds], axis = 0)
+
+# convert the test data set to matrix form
+x_test = np.concatenate([x for x, y in test_ds], axis = 0)
+y_test = np.concatenate([y for x, y in test_ds], axis = 0)
+``` 
+======.   
+Then we need to prepare some variables to compute SHAP value.  
+We use the DeepExplainer class from the shap librar to explain predictions of the model we just built.
+
+```python
+explainer = shap.GradientExplainer(model, x_train)
+```
+Eventually, compute the SHAP value:
+```python
+#calculate the shap value:
+sv = explainer.shap_values(x_test[:20])
+```
+## Visulization of the SHAP values
+Sometimes, it is hard to understand the simple score of SHAP. Here, We could take a look at the computed shap values.  
+To understand the plot, here are some rules:
+  * Positive shape values are represented by red, and they represent pixels that help classify the image into that particular category.
+  * Negative shap values are denoted by blue color and they represent the pixels that contributed to NOT classify that image as that particular class.
+  * Each row contains each one of the test images you computed the shap values for. The example contains 3 classes. 
+ 
