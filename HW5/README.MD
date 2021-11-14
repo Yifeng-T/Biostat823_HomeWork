@@ -210,4 +210,10 @@ To understand the plot, here are some rules:
   * Positive shape values are represented by red, and they represent pixels that help classify the image into that particular category.
   * Negative shap values are denoted by blue color and they represent the pixels that contributed to NOT classify that image as that particular class.
   * Each row contains each one of the test images you computed the shap values for. The example contains 3 classes. 
- 
+
+```python
+print("    Reference             beetles             cockroach             dragflies")
+shap.image_plot([sv[i] for i in range(3)], x_test[0:5])
+```
+Following is the sv image. The first row in reference is cockroach, we can observe there more red part in the imagine under the cockroach column.It indicates that the classification accuracy is satisfied.
+![sv.png](https://i.loli.net/2021/11/14/aALV5PmlQ2ZbegE.png)
